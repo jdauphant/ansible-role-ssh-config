@@ -1,4 +1,4 @@
 ansible-role-ssh_config
 ===========================
 
-Generate a .ssh_config with your config
+Generate a .ssh/config with your inventory
