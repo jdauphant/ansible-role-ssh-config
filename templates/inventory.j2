@@ -1,0 +1,10 @@
+## {{ ansible_managed }}
+## 
+{% for host, vars in hostvars.iteritems() %}
+Host {{host}}
+{% if vars.ansible_ssh_host is defined %}HostName {{vars.ansible_ssh_host}}{% endif %}
+{% if vars.ansible_ssh_user is defined %}User {{vars.ansible_ssh_user}}{% endif %}
+{% if vars.ansible_ssh_port is defined %}Port {{vars.ansible_ssh_port}}{% endif %}
+{% if vars.ansible_ssh_private_key_file is defined %}IdentityFile {{vars.ansible_ssh_private_key_file}}{% endif %}
+
+{% endfor %}

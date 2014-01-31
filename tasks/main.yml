@@ -1,0 +1,28 @@
+---
+ - name: ensure .ssh/config.d exist
+   file: path={{ssh_config_home}}/.ssh/config.d state=directory owner="{{ssh_config_user}}" group="{{ssh_config_group}}" mode=700
+   tags: [configuration,ssh]
+
+ - name: ensure .ssh/config is manage by ansible
+   shell: /bin/grep 'Ansible managed' {{ssh_config_home}}/.ssh/config
+   register: _ssh_config
+   ignore_errors: True
+   changed_when: "_ssh_config.rc != 0"
+   tags: [configuration,ssh]
+
+ - name: ensure header for config exist
+   template: src=01-header.j2 dest={{ssh_config_home}}/.ssh/config.d/01-header
+   tags: [configuration,ssh]
+
+ - name: backup user old .ssh/config to .ssh/config.d/10-perso
+   shell: cp {{ssh_config_home}}/.ssh/config {{ssh_config_home}}/.ssh/config.d/10-perso
+   when: "_ssh_config.rc != 0"
+   tags: [configuration,ssh]
+
+ - name: ensure config for this inventory exist
+   template: src=inventory.j2 dest={{ssh_config_home}}/.ssh/config.d/{{ssh_config_order}}-{{ssh_config_filename|default(vars.inventory_dir.split('/')[-1])}}
+   tags: [configuration,ssh]
+
+ - name: assemble ssh config
+   assemble: src={{ssh_config_home}}/.ssh/config.d dest={{ssh_config_home}}/.ssh/config
+   tags: [configuration,ssh]
