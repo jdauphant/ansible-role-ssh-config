@@ -7,7 +7,7 @@
    shell: /bin/grep 'Ansible managed' {{ssh_config_home}}/.ssh/config
    register: _ssh_config
    ignore_errors: True
-   changed_when: "_ssh_config.rc != 0"
+   changed_when: "_ssh_config.rc == 1"
    tags: [configuration,ssh]
 
  - name: ensure header for config exist
@@ -16,7 +16,7 @@
 
  - name: backup user old .ssh/config to .ssh/config.d/10-perso
    shell: cp {{ssh_config_home}}/.ssh/config {{ssh_config_home}}/.ssh/config.d/10-perso
-   when: "_ssh_config.rc != 0"
+   when: "_ssh_config.rc == 1"
    tags: [configuration,ssh]
 
  - name: ensure config for each host of the inventory exist
