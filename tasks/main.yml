@@ -19,8 +19,10 @@
    when: "_ssh_config.rc != 0"
    tags: [configuration,ssh]
 
- - name: ensure config for this inventory exist
-   template: src=inventory.j2 dest={{ssh_config_home}}/.ssh/config.d/{{ssh_config_order}}-{{ssh_config_filename|default(vars.inventory_dir.split('/')[-1])}}
+ - name: ensure config for each host of the inventory exist
+   template: src=inventory.j2 dest={{ssh_config_home}}/.ssh/config.d/{{ssh_config_order}}-{{item}}
+   when: item != 'localhost' and item != '127.0.0.1'
+   with_items: groups.all
    tags: [configuration,ssh]
 
  - name: assemble ssh config

@@ -1,11 +1,14 @@
 ## {{ ansible_managed }}
 ## 
-{% for host in groups.all %}
-{% if host != "localhost" and host != "127.0.0.1" %}
-Host {{host}}
-{% if hostvars[host].ansible_ssh_host is defined %}HostName {{hostvars[host].ansible_ssh_host}}{% endif %} 
-{% if hostvars[host].ansible_ssh_user is defined %}User {{hostvars[host].ansible_ssh_user}}{% endif %} 
-{% if hostvars[host].ansible_ssh_port is defined %}Port {{hostvars[host].ansible_ssh_port}}{% endif %} 
-{% if hostvars[host].ansible_ssh_private_key_file is defined %}IdentityFile {{hostvars[host].ansible_ssh_private_key_file}}{% endif %} 
+{% if item != "localitem" and item != "127.0.0.1" %}
+Host {{item}}
+{% if hostvars[item].ansible_ssh_host is defined %}HostName {{hostvars[item].ansible_ssh_host}}
 {% endif %}
-{% endfor %}
+{% if hostvars[item].ansible_ssh_user is defined %}User {{hostvars[item].ansible_ssh_user}}
+{% elif hostvars[item].ansible_user_id is defined %}User {{hostvars[item].ansible_user_id}}
+{% endif %}
+{% if hostvars[item].ansible_ssh_port is defined %}Port {{hostvars[item].ansible_ssh_port}}
+{% endif %}
+{% if hostvars[item].ansible_ssh_private_key_file is defined %}IdentityFile {{hostvars[item].ansible_ssh_private_key_file}}
+{% endif %}
+{% endif %}
