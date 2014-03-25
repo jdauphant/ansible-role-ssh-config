@@ -1,7 +1,7 @@
 ## {{ ansible_managed }}
 ## 
 {% if item != "localitem" and item != "127.0.0.1" %}
-Host {{item}}
+Host {{hostvars[item].inventory_hostname_short}}
 {% if hostvars[item].ansible_ssh_host is defined %}HostName {{hostvars[item].ansible_ssh_host}}
 {% endif %}
 {% if hostvars[item].ansible_ssh_user is defined %}User {{hostvars[item].ansible_ssh_user}}

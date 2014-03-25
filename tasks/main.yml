@@ -20,7 +20,7 @@
    tags: [configuration,ssh]
 
  - name: ensure config for each host of the inventory exist
-   template: src=inventory.j2 dest={{ssh_config_home}}/.ssh/config.d/{{ssh_config_order}}-{{item}}
+   template: src=inventory.j2 dest={{ssh_config_home}}/.ssh/config.d/{{ssh_config_order}}-{{hostvars[item].inventory_hostname_short}}
    when: item != 'localhost' and item != '127.0.0.1'
    with_items: groups.all
    tags: [configuration,ssh]
