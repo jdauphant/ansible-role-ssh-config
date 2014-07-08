@@ -1,9 +1,10 @@
 ansible-role-ssh_config
 ===========================
 
-Generate a .ssh/config with your inventory
+Generate a .ssh/config with your inventory (keep your old .ssh/config in backup)
 
 Playbook example : ( file local_ssh_config.yml )
+```
   ---
    - hosts: all
      sudo: no
@@ -14,3 +15,4 @@ Playbook example : ( file local_ssh_config.yml )
      sudo: false
      roles:
       - ssh-config
+```
