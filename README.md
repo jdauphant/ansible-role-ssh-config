@@ -3,7 +3,7 @@ ansible-role-ssh_config
 
 Generate a ~/.ssh/config with your inventory (keep your old .ssh/config in backup)
 
-Available on Ansible Galaxy : https://galaxy.ansible.com/list#/roles/3116
+Available on Ansible Galaxy : https://galaxy.ansible.com/jdauphant/ssh-config/
 
 # Playbook example :
 ```
