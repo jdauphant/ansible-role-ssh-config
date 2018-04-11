@@ -8,7 +8,7 @@
    register: _ssh_config
    ignore_errors: True
    changed_when: "_ssh_config.rc == 1"
-   always_run: yes
+   check_mode: no
    tags: [configuration,ssh]
 
  - name: ensure header for config exist
