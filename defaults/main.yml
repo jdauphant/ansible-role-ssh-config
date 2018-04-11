@@ -3,3 +3,4 @@ ssh_config_user: "{{ ansible_env.USER|default(ansible_user_id) }}"
 ssh_config_home: "{{ ansible_env.HOME|default('/home/'+ansible_user_id) }}"
 ssh_config_group: "{{ssh_config_user}}"
 ssh_config_order: 20
+ssh_config_host_prefix:
