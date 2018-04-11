@@ -27,5 +27,5 @@
    tags: [configuration,ssh]
 
  - name: assemble ssh config
-   assemble: src={{ssh_config_home}}/.ssh/config.d dest={{ssh_config_home}}/.ssh/config
+   assemble: src={{ssh_config_home}}/.ssh/config.d dest={{ssh_config_home}}/.ssh/config owner="{{ssh_config_user}}" group="{{ssh_config_group}}" mode=0644
    tags: [configuration,ssh]
